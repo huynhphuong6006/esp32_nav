@@ -1,0 +1,40 @@
+# Tạo NavESP.xcodeproj: chạy `xcodegen` trong thư mục này
+name: NavESP
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  NavESP:
+    type: application
+    platform: iOS
+    sources: [NavESP]
+    configFiles:
+      Debug: Config/Base.xcconfig
+      Release: Config/Base.xcconfig
+    info:
+      path: NavESP/Info.plist
+      properties:
+        CFBundleDisplayName: NavESP
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSBluetoothAlwaysUsageDescription: "NavESP dùng Bluetooth để gửi tuyến đường xuống thiết bị dẫn đường trên xe."
+        NSLocationWhenInUseUsageDescription: "NavESP dùng vị trí của bạn làm điểm xuất phát khi tính đường."
+        NSCameraUsageDescription: "NavESP dùng camera để quét mã QR cài đặt máy chủ chỉ đường."
+        NavESPDefaultRouteURL: $(NAVESP_ROUTE_URL)
+        NavESPDefaultRouteKey: $(NAVESP_ROUTE_KEY)
+        CFBundleURLTypes:
+          - CFBundleURLName: navesp.server
+            CFBundleURLSchemes: [navesp]
+        UIBackgroundModes: [bluetooth-central]
+        UIFileSharingEnabled: true                 # cho phép xem log trong app Tệp / Finder
+        LSSupportsOpeningDocumentsInPlace: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(NAVESP_BUNDLE_ID)
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: $(NAVESP_TEAM_ID)   # đặt trong Config/Local.xcconfig, xem ios/README.md
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.0"
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"

@@ -1,0 +1,5 @@
+osmium>=4
+pillow>=10
+shapely>=2
+numpy>=1.26
+lz4>=4

@@ -1,0 +1,24 @@
+# ESP-IDF
+build/
+managed_components/
+.cache/
+sdkconfig.old
+# iOS / Xcode (tạo .xcodeproj bằng xcodegen)
+ios/NavESP/NavESP.xcodeproj/
+ios/NavESP/Config/Local.xcconfig
+DerivedData/
+xcuserdata/
+*.xcuserstate
+# Dữ liệu bản đồ: tải/tạo lại được
+tools/map_render/data/
+tools/map_render/out/
+*.osm
+*.osm.pbf
+*.osrm*
+# Python, editor, macOS
+.venv/
+__pycache__/
+.idea/
+.vscode/
+.DS_Store
+*.log

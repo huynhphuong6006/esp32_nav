@@ -1,0 +1,11 @@
+// Cấu hình chung của app. Mỗi người tự tạo Config/Local.xcconfig (không đưa vào git) để đặt:
+//   NAVESP_TEAM_ID   = <Team ID trong Xcode, ví dụ Personal Team của Apple ID>
+//   NAVESP_BUNDLE_ID = <bundle id riêng, ví dụ com.tenban.navesp>
+// và nếu có máy chủ chỉ đường riêng (không bắt buộc, nhập trong app cũng được):
+//   NAVESP_ROUTE_URL = https:/$()/route.example.com
+//   NAVESP_ROUTE_KEY = <khoá>
+NAVESP_TEAM_ID =
+NAVESP_BUNDLE_ID = com.example.navesp
+NAVESP_ROUTE_URL =
+NAVESP_ROUTE_KEY =
+#include? "Local.xcconfig"
