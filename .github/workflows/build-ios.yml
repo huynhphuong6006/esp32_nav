@@ -1,0 +1,55 @@
+
+name: Build NavESP iOS IPA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Get source code
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios/NavESP
+        run: xcodegen generate
+
+      - name: Build unsigned iPhone app
+        working-directory: ios/NavESP
+        run: |
+          xcodebuild \
+            -project NavESP.xcodeproj \
+            -scheme NavESP \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            NAVESP_BUNDLE_ID=com.esp32nav.iphone \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Package IPA
+        working-directory: ios/NavESP
+        run: |
+          APP_PATH="build/Build/Products/Release-iphoneos/NavESP.app"
+          test -d "$APP_PATH"
+          mkdir -p package/Payload
+          ditto "$APP_PATH" package/Payload/NavESP.app
+          cd package
+          zip -qry ../NavESP.ipa Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NavESP-unsigned-IPA
+          path: ios/NavESP/NavESP.ipa
+          if-no-files-found: error
+          retention-days: 7
